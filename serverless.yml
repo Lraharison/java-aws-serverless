@@ -1,0 +1,19 @@
+service: java-aws-serverless
+
+provider:
+  name: aws
+  runtime: java8
+  memorySize: 512
+  region: ca-central-1
+
+package:
+  artifact: target/java-aws-serverless-1.0-SNAPSHOT.jar
+
+functions:
+  getItem:
+    handler: com.cyranno.serverless.GetItemHandler
+    timeout: 10
+    events:
+      - http:
+          path: /get-item/{id}
+          method: get

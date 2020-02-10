@@ -14,13 +14,11 @@ public class ApiGatewayResponse {
     private final int statusCode;
     private final String body;
     private final Map<String, String> headers;
-    private final boolean isBase64Encoded;
 
-    public ApiGatewayResponse(final int statusCode, final String body, final Map<String, String> headers, final boolean isBase64Encoded) {
+    public ApiGatewayResponse(final int statusCode, final String body, final Map<String, String> headers) {
         this.statusCode = statusCode;
         this.body = body;
         this.headers = headers;
-        this.isBase64Encoded = isBase64Encoded;
     }
 
     public static Builder builder() {
@@ -34,7 +32,6 @@ public class ApiGatewayResponse {
         private Map<String, String> headers = emptyMap();
         private Object objectBody;
         private String rawBody;
-        private boolean isBase64Encoded;
 
         public Builder withStatusCode(final int statusCode) {
             this.statusCode = statusCode;
@@ -56,11 +53,6 @@ public class ApiGatewayResponse {
             return this;
         }
 
-        public Builder withBase64Encoded(final boolean isBase64Encoded) {
-            this.isBase64Encoded = isBase64Encoded;
-            return this;
-        }
-
         public ApiGatewayResponse build() {
             String body = null;
             int statusCode = this.statusCode;
@@ -76,7 +68,7 @@ public class ApiGatewayResponse {
                 }
             }
             log.info("body response = {}", body);
-            return new ApiGatewayResponse(statusCode, body, headers, this.isBase64Encoded);
+            return new ApiGatewayResponse(statusCode, body, headers);
         }
     }
 }
